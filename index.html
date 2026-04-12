@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BloomGraph Demo</title>
+  <style>
+    body { font-family: sans-serif; background: #fff; margin: 0; padding: 1.5rem; }
+    @media (prefers-color-scheme: dark) {
+      body { background: #111; color: #ddd; }
+    }
+    h2 { font-size: 14px; font-weight: 600; color: #555; margin: 2rem 0 0.5rem; }
+    .row { display: flex; flex-wrap: wrap; gap: 2rem; }
+    .row > div { flex: 1; min-width: 280px; }
+    pre { background: #f4f4f4; padding: 1rem; border-radius: 6px; font-size: 12px; overflow: auto; }
+    @media (prefers-color-scheme: dark) { pre { background: #222; } }
+  </style>
+</head>
+<body>
+
+<h1 style="font-size:1.4rem; margin-bottom:0.25rem;">BloomGraph</h1>
+<p style="color:#888; font-size:13px; margin-top:0;">Embeddable radar chart library</p>
+
+<h2>Default chart</h2>
+<div id="chart1"></div>
+
+<h2>Custom axes + accent color + onChange callback</h2>
+<div class="row">
+  <div id="chart2"></div>
+  <div>
+    <p style="font-size:13px; color:#888;">Values (live):</p>
+    <pre id="output">{}</pre>
+  </div>
+</div>
+
+<h2>No controls (read-only), values set programmatically</h2>
+<div id="chart3"></div>
+
+<script src="bloomgraph.js"></script>
+<script>
+  // 1. Default chart — uses built-in axes
+  new BloomGraph('#chart1');
+
+  // 2. Custom axes, accent color, onChange callback
+  const chart2 = new BloomGraph('#chart2', {
+    title: 'Project health',
+    axes: [
+      { label: 'Velocity',    value: 80 },
+      { label: 'Quality',     value: 65 },
+      { label: 'Coverage',    value: 50 },
+      { label: 'Docs',        value: 40 },
+      { label: 'Reliability', value: 70 },
+      { label: 'Security',    value: 90 },
+    ],
+    accentColor: '#e05a2b',
+    onChange(values) {
+      document.getElementById('output').textContent = JSON.stringify(values, null, 2);
+    },
+  });
+
+  // 3. Read-only chart; values driven by setValues()
+  const chart3 = new BloomGraph('#chart3', {
+    title: 'Team snapshot',
+    showControls: false,
+    theme: 'light',
+    axes: [
+      { label: 'Alice', value: 0 },
+      { label: 'Bob',   value: 0 },
+      { label: 'Carol', value: 0 },
+      { label: 'Dave',  value: 0 },
+      { label: 'Eve',   value: 0 },
+    ],
+  });
+
+  chart3.setValues({ Alice: 85, Bob: 72, Carol: 91, Dave: 60, Eve: 78 });
+</script>
+</body>
+</html>
