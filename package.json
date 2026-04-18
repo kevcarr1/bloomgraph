@@ -1,0 +1,20 @@
+{
+  "name": "bloomgraph",
+  "version": "1.0.0",
+  "description": "Embeddable radar/spider chart library. Zero dependencies, vanilla JavaScript.",
+  "main": "bloomgraph.js",
+  "scripts": {
+    "test": "echo \"No tests yet\" && exit 0"
+  },
+  "keywords": [
+    "chart",
+    "radar",
+    "spider",
+    "visualization"
+  ],
+  "author": "",
+  "license": "MIT",
+  "files": [
+    "bloomgraph.js"
+  ]
+}
